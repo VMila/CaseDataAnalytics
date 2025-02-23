@@ -1,6 +1,13 @@
 /*
 * Script para ler dois arquivos JSON com dados corrompidos de venda de carros e de marcas de carros,
 * corrigir estes dados, e salvar a versão corrigida em novos arquivos JSON
+*
+* Pré-requisitos:
+* - Node.js instalado na máquina (https://nodejs.org)
+* - Os arquivos JSON devem estar localizados na pasta `./JSON/` do mesmo diretório do script.
+*
+* Para rodar, tenha certeza que está no diretório do arquivo JavaScript e utilize o seguinte comando:
+*      node tratamentoDados.js
 */
 
 const fs = require('fs');
