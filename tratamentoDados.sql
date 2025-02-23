@@ -93,12 +93,12 @@ ORDER BY sum(valor_do_veiculo*vendas) DESC
 * Consulta do número de vendas por cada faixa de preço
 * organizando pelo número de vendas
 */
+SELECT
 SUM(vendas) AS num_vendas,
 (FLOOR(valor_do_veiculo / 10000))*10000 AS faixa_de_preço
 FROM fixed_database_1
 group by FLOOR(valor_do_veiculo / 10000)
 ORDER BY SUM(vendas) DESC
-
 
 /*4. Qual a receita das 3 marcas que têm os menores tickets médios?*/ 
 /*
