@@ -54,3 +54,77 @@ SELECT * FROM fixed_database_1 ORDER BY ID
 * Após fazer essas consultas, já temos todos os dados necessários 
 * e é possível fazer a exportação do arquivo como .csv
 */
+
+/***CONSULTAS PARA RESPONDER AS PERGUNTAS DO RELATÓRIO***/
+
+/*1. Qual marca teve o maior volume de vendas?*/ 
+
+/*
+* Consulta de qual marca teve a maior receita em suas vendas
+* organizando da marca que mais ganhou até a que menos ganhou
+*/
+SELECT marca, SUM(valor_do_veiculo*vendas) AS receita_total
+FROM fixed_database_1
+GROUP BY  marca
+ORDER BY sum(valor_do_veiculo*vendas) DESC
+
+/*
+* Consulta de qual marca teve a maior quantidade de carros vendidos
+* organizando da marca que mais vendeu até a que menos vendeu
+*/
+SELECT marca, SUM(vendas) AS total_vendas
+FROM fixed_database_1
+GROUP BY  marca
+ORDER BY sum(vendas) DESC
+
+/*2. Qual veículo gerou a maior e menor receita?*/ 
+/*
+* Consulta das receitas de cada modelo de carro que voi vendido
+* organizando do modelo com maior receita até o com menor receita
+*/
+SELECT marca, nome, SUM(valor_do_veiculo*vendas) AS receita_total
+FROM fixed_database_1
+GROUP BY marca, nome
+ORDER BY sum(valor_do_veiculo*vendas) DESC
+
+/*3. Considere faixas de preço de venda dos carros a cada 10 mil reais.
+     Qual faixa mais vendeu carros? Quantos?*/
+/*
+* Consulta do número de vendas por cada faixa de preço
+* organizando pelo número de vendas
+*/
+SUM(vendas) AS num_vendas,
+(FLOOR(valor_do_veiculo / 10000))*10000 AS faixa_de_preço
+FROM fixed_database_1
+group by FLOOR(valor_do_veiculo / 10000)
+ORDER BY SUM(vendas) DESC
+
+
+/*4. Qual a receita das 3 marcas que têm os menores tickets médios?*/ 
+/*
+* Consulta do ticket medio e receita de cada marca
+* organizando da marca com maiot ticket até a com menor
+* limitando aos 3 primeiros resultados
+*/
+SELECT 
+marca,  
+ROUND(AVG(valor_do_veiculo), 2) AS ticket_medio, 
+SUM(valor_do_veiculo*vendas) AS receita_total
+FROM fixed_database_1
+GROUP BY marca
+ORDER BY AVG(valor_do_veiculo)
+LIMIT 3
+
+/*5. Existe alguma relação entre os veículos mais vendidos?*/ 
+/*
+* Consulta dos carros que mais foram vendidos
+* organizando do modelo que mais vendeu até o que menos vendeu
+* e analisando o ticket medio de cada modelo para buscar relações entre eles
+*/
+SELECT 
+marca, nome, 
+SUM(vendas) AS num_vendas, 
+ROUND(AVG(valor_do_veiculo),2) AS ticket_medio
+FROM fixed_database_1
+GROUP BY marca, nome
+ORDER BY sum(vendas) DESC
