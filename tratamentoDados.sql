@@ -50,6 +50,9 @@ WHERE d1.marca = d2.id_marca;
 /* Comando para visualizar a tabela resultante (ordenada pelo ID) */
 SELECT * FROM fixed_database_1 ORDER BY ID
 
+/* Mudança do nome da tabela */
+ALTER TABLE fixed_database_1 RENAME TO tabela_fixed_unica;
+
 /* 
 * Após fazer essas consultas, já temos todos os dados necessários 
 * e é possível fazer a exportação do arquivo como .csv
@@ -64,7 +67,7 @@ SELECT * FROM fixed_database_1 ORDER BY ID
 * organizando da marca que mais ganhou até a que menos ganhou
 */
 SELECT marca, SUM(valor_do_veiculo*vendas) AS receita_total
-FROM fixed_database_1
+FROM tabela_fixed_unica
 GROUP BY  marca
 ORDER BY sum(valor_do_veiculo*vendas) DESC
 
@@ -73,7 +76,7 @@ ORDER BY sum(valor_do_veiculo*vendas) DESC
 * organizando da marca que mais vendeu até a que menos vendeu
 */
 SELECT marca, SUM(vendas) AS total_vendas
-FROM fixed_database_1
+FROM tabela_fixed_unica
 GROUP BY  marca
 ORDER BY sum(vendas) DESC
 
@@ -83,7 +86,7 @@ ORDER BY sum(vendas) DESC
 * organizando do modelo com maior receita até o com menor receita
 */
 SELECT marca, nome, SUM(valor_do_veiculo*vendas) AS receita_total
-FROM fixed_database_1
+FROM tabela_fixed_unica
 GROUP BY marca, nome
 ORDER BY sum(valor_do_veiculo*vendas) DESC
 
@@ -96,7 +99,7 @@ ORDER BY sum(valor_do_veiculo*vendas) DESC
 SELECT
 SUM(vendas) AS num_vendas,
 (FLOOR(valor_do_veiculo / 10000))*10000 AS faixa_de_preço
-FROM fixed_database_1
+FROM tabela_fixed_unica
 group by FLOOR(valor_do_veiculo / 10000)
 ORDER BY SUM(vendas) DESC
 
@@ -110,7 +113,7 @@ SELECT
 marca,  
 ROUND(AVG(valor_do_veiculo), 2) AS ticket_medio, 
 SUM(valor_do_veiculo*vendas) AS receita_total
-FROM fixed_database_1
+FROM tabela_fixed_unica
 GROUP BY marca
 ORDER BY AVG(valor_do_veiculo)
 LIMIT 3
@@ -125,6 +128,6 @@ SELECT
 marca, nome, 
 SUM(vendas) AS num_vendas, 
 ROUND(AVG(valor_do_veiculo),2) AS ticket_medio
-FROM fixed_database_1
+FROM tabela_fixed_unica
 GROUP BY marca, nome
 ORDER BY sum(vendas) DESC
