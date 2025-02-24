@@ -39,7 +39,7 @@ brokenData1.forEach(dataCarros => {
 });
 
 /*
-* Para cada objeto obtido no arquivo 1 será feito:
+* Para cada objeto obtido no arquivo 2 será feito:
 * - Substituição de todas as ocorrências de 'æ' por 'a' e de 'ø' por 'o' no nome das marcas
 */
 brokenData2.forEach(dataMarcas => {
